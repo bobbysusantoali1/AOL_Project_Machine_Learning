@@ -1,4 +1,3 @@
-# Save Model Using Pickle
 import pandas as pd
 from sklearn import model_selection
 from sklearn.linear_model import LogisticRegression
@@ -16,6 +15,8 @@ X_train, X_test, Y_train, Y_test = model_selection.train_test_split(X, Y, test_s
 # Fit the model on training set
 model = LogisticRegression()
 model.fit(X_train, Y_train)
-# save the model to disk
+
 filename = 'Prediksi_Harga_Rumah.ipynb'
-pickle.dump(model, open(filename, 'wb'))
+loaded_model = pickle.load(open(filename, 'rb'))
+result = loaded_model.score(X_test, Y_test)
+print(result)
