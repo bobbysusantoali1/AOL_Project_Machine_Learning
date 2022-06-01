@@ -4,7 +4,7 @@ from sklearn import model_selection
 from sklearn.linear_model import LogisticRegression
 import pickle
 
-df = pd.read_csv(r'D:\Kuliah\Semester 4\NLP\Project\AOL_Project_Machine_Learning\DataMix.csv', sep = ';')
+df = pd.read_csv(r'DataMix.csv', sep = ';')
 X = df[['LB', 'LT', 'KT', 'KM', 'GRS']]
 Y = df['HARGA']
 test_size = 0.2
