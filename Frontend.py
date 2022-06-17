@@ -264,9 +264,6 @@ class Application(object):
 
 	def show_LB_histogram(self):
 		make_histogram(house_price_dataset.dataset[:,1], "Building Area (Luas Bangunan)")
-		make_scatter(house_price_dataset.dataset[:,0],
-					house_price_dataset.dataset[:,1],
-					"Scatter harga dengan luas bangunan")
 
 
 	def show_LT_histogram(self):
@@ -310,9 +307,9 @@ class Application(object):
 		Set button untuk menampilkan visualisasi pada window terpisah
 		"""
 		variable = [
-			["Luas tanah", 0.29],
-			["Luas bangunan", 0.365],
-			["Jumlah kamar tidur", 0.44],
+			["Luas tanah                   ", 0.29],
+			["Luas bangunan           ", 0.365],
+			["Jumlah kamar tidur   ", 0.44],
 			["Jumlah kamar mandi", 0.515],
 		]
 
