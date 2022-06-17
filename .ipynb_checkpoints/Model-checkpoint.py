@@ -16,12 +16,12 @@ x.info()
 
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder 
 label_encode = LabelEncoder()
-x['GRS'] = label_encode.fit_transform(x['GRS'])
-x
+x['GRS'] = 1-label_encode.fit_transform(x['GRS'])
+print(x)
 
 
 from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 0)
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.6, random_state = 0)
 
 
 from sklearn.linear_model import LinearRegression
