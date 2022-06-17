@@ -66,9 +66,10 @@ def make_histogram(data, title):
 	mp.show()
 
 
-def make_scatter(data_x, data_y, title):
+def make_scatter(data_x, data_y, xlabel):
 	mp.scatter(data_x, data_y)
-	mp.title(title)
+	mp.xlabel(xlabel)
+	mp.ylabel("Price (Harga)")
 	mp.show()
 
 
@@ -261,36 +262,47 @@ class Application(object):
 		return prediction
 
 
-	def show_histogram(self, idx):
-		"""
-		Fungsi perantara 
-		"""
-		print("show histogram cmd idx =", idx)
-		pass
-
-
 	def show_LB_histogram(self):
 		make_histogram(house_price_dataset.dataset[:,1], "Building Area (Luas Bangunan)")
 		make_scatter(house_price_dataset.dataset[:,0],
 					house_price_dataset.dataset[:,1],
 					"Scatter harga dengan luas bangunan")
-		pass
 
 
 	def show_LT_histogram(self):
 		make_histogram(house_price_dataset.dataset[:,2], "Land Area (Luas Tanah)")
-		pass
 
 
 	def show_KT_histogram(self):
 		make_histogram(house_price_dataset.dataset[:,3], "Number of Bedroom (Jumlah Kamar Tidur)")
 
-		pass
-
 
 	def show_KM_histogram(self):
 		make_histogram(house_price_dataset.dataset[:,4], "Number of Bathroom (Jumlah Kamar Mandi)")
-		pass
+
+
+	def show_LB_scatter(self):
+		make_scatter(house_price_dataset.dataset[:,1],
+					house_price_dataset.dataset[:,0],
+					"Building Area (Luas Bangunan)")
+
+
+	def show_LT_scatter(self):
+		make_scatter(house_price_dataset.dataset[:,2],
+					house_price_dataset.dataset[:,0],
+					"Land Area (Luas Tanah)")
+
+
+	def show_KT_scatter(self):
+		make_scatter(house_price_dataset.dataset[:,3],
+					house_price_dataset.dataset[:,0],
+					"Number of Bedroom (Jumlah kamar tidur)")
+
+
+	def show_KM_scatter(self):
+		make_scatter(house_price_dataset.dataset[:,4],
+					house_price_dataset.dataset[:,0],
+					"Number of Bathroom (Jumlah kamar mandi)")
 
 
 	def set_visualization_buttons(self):
@@ -328,25 +340,27 @@ class Application(object):
 			show_histogram_buttons[i].place(relx = 0.27, rely = variable[i][1])
 
 
-		# show_scatter_buttons = [
-		# 	tkr.Button(self.win,
-		# 				text = "Show Scatter " + variable[0][0],
-		# 				font = Calibri(20),
-		# 				command = self.show_LT_scatter),
-		# 	tkr.Button(self.win,
-		# 				text = "Show Scatter " + variable[1][0],
-		# 				font = Calibri(20),
-		# 				command = self.show_LB_scatter),
-		# 	tkr.Button(self.win,
-		# 				text = "Show Scatter " + variable[2][0],
-		# 				font = Calibri(20),
-		# 				command = self.show_KT_scatter),
-		# 	tkr.Button(self.win,
-		# 				text = "Show Scatter " + variable[3][0],
-		# 				font = Calibri(20),
-		# 				command = self.show_KM_scatter)
-		# ]
+		show_scatter_buttons = [
+			tkr.Button(self.win,
+						text = "Show Scatter " + variable[0][0],
+						font = Calibri(20),
+						command = self.show_LT_scatter),
+			tkr.Button(self.win,
+						text = "Show Scatter " + variable[1][0],
+						font = Calibri(20),
+						command = self.show_LB_scatter),
+			tkr.Button(self.win,
+						text = "Show Scatter " + variable[2][0],
+						font = Calibri(20),
+						command = self.show_KT_scatter),
+			tkr.Button(self.win,
+						text = "Show Scatter " + variable[3][0],
+						font = Calibri(20),
+						command = self.show_KM_scatter)
+		]
 
+		for i in range(4):
+			show_scatter_buttons[i].place(relx = 0.55, rely = variable[i][1])
 
 
 a = Application()
