@@ -13,6 +13,13 @@ import copy
 
 import random
 
+import matplotlib.pyplot as mp
+import numpy as np
+
+import pickle
+
+
+
 
 """ Untuk mengatur font family """
 def Calibri(fontSize):
@@ -21,7 +28,8 @@ def Calibri(fontSize):
 def Kaiti(fontSize):
 	return tk_font.Font(family = "Kaiti", size = fontSize, underline = "0")
 
-
+def debug(content, identifier = ""):
+	print("\n[debugging]", identifier, content, "\n")
 
 def split_thousands(n):
 	result = ""
@@ -55,6 +63,7 @@ class Application(object):
 		self.set_prompts_and_entries()
 		self.set_key_bindings()
 		self.set_button()
+		self.set_garage_exist_question()
 		self.set_garage_button()
 		self.place_application_title()
 
@@ -85,7 +94,7 @@ class Application(object):
 		self.title.place(relx = 0.5, rely = 0.15, anchor = tkr.CENTER)
 
 		self.title2 = tkr.Label(self.win,
-								# text = "南雅加达区域房子价格预测应用",
+								text = "南雅加达区域房子价格预测应用",
 								font = Kaiti(50),
 								bg = self.win_bg)
 		self.title2.place(relx = 0.5, rely = 0.25, anchor = tkr.CENTER)
@@ -122,7 +131,7 @@ class Application(object):
 	def re_show_prediction(self):
 		if self.house_price_shown > 0:
 			self.house_price_label.place_forget()
-		self.show_prediction(self.random_prediction_result(self.get_predictors()))
+		self.show_prediction(self.predict([self.get_predictors()]))
 
 
 	# Setting Entries
@@ -171,24 +180,34 @@ class Application(object):
 		# submit_button.place(relx = 0.2, rely = 0.8, anchor = tkr.CENTER)
 
 
+	def set_garage_exist_question(self):
+		garage_exist_question = tkr.Label(self.win, 
+										text = "Ada garasi?", 
+										font = Calibri(20),
+										bg = self.win_bg)
+		garage_exist_question.place(relx = 0.05, rely = 0.625)
+
+
 	def set_garage_button(self):
-		tidak_ada_garasi = tkr.Button(self.win, text = "Tidak ada garasi", font = Calibri(20), command = self.has_no_garage)
-		ada_garasi = tkr.Button(self.win, text = "Ada garasi", font = Calibri(20), command = self.has_garage)
+		self.tidak_ada_garasi_btn = tkr.Button(self.win, text = "Tidak", font = Calibri(20), command = self.has_no_garage_cmd)
+		self.ada_garasi_btn = tkr.Button(self.win, text = "Ya", font = Calibri(20), command = self.has_garage_cmd)
 
-		tidak_ada_garasi.place(relx = 0.05, rely = 0.65, anchor = tkr.W)
-		ada_garasi.place(relx = 0.18, rely = 0.65, anchor = tkr.W)
-
-
-	def has_garage(self):
-		self.ada_garasi = 1
-		self.re_show_prediction()
-		# print("ada garasi", self.ada_garasi)
+		self.tidak_ada_garasi_btn.place(relx = 0.18, rely = 0.65, anchor = tkr.W)
+		self.ada_garasi_btn.place(relx = 0.24, rely = 0.65, anchor = tkr.W)
 
 
-	def has_no_garage(self):
+	def has_garage_cmd(self):
 		self.ada_garasi = 0
+		self.ada_garasi_btn.config(bg = "#00ff00")
+		self.tidak_ada_garasi_btn.config(bg = "#ffffff")
 		self.re_show_prediction()
-		# print("ada garasi", self.ada_garasi)
+
+
+	def has_no_garage_cmd(self):
+		self.ada_garasi = 1 # karena di model encodenya TIDAK ADA jadi 1
+		self.tidak_ada_garasi_btn.config(bg = "#00ff00")
+		self.ada_garasi_btn.config(bg = "#ffffff")
+		self.re_show_prediction()
 
 
 	# Machine Learning
@@ -204,6 +223,8 @@ class Application(object):
 
 
 	def show_prediction(self, house_price):
+		# print("[debugging] HOUSE PRICE =", house_price)
+		debug(house_price,"HOUSE PRICE")
 		if house_price == None:
 			return
 
@@ -228,9 +249,30 @@ class Application(object):
 		Ini fungsi untuk mendapatkan hasil prediksi
 
 		"""
+		debug(predictors, "predictors")
+
+		saved_model_filename = 'model.sav'
 		model = pickle.load(open(saved_model_filename, 'rb'))
-		prediction = model.predict(np.array([predictors]))
+		prediction = model.predict(predictors)
+		prediction = int(prediction)
+
+		debug(prediction, 'prediction PREDIKSI')
+
 		return prediction
+
+
+	def set_visualization_buttons(self):
+		"""
+		Set button untuk menampilkan visualisasi pada window terpisah
+		"""
+		# show_dummy_graph = tkr.Button(self.win, )
+
+
+	# def show_correlation_graph(self):
+	# 	x = [1,2,3,4,5]
+	# 	y = [1,3,5,7,8]
+	# 	mp.scatter(x,y)
+	# 	mp.show()
 
 
 a = Application()
