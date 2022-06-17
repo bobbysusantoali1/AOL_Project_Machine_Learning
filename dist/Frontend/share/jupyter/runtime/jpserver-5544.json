@@ -1,0 +1,12 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "password": false,
+  "pid": 5544,
+  "port": 8888,
+  "root_dir": "C:\\Data\\Python\\Flashcard",
+  "secure": false,
+  "token": "b2f61b485976c4870430a8745b3c4badbbbbc0451b398b12",
+  "url": "http://localhost:8888/",
+  "version": "1.4.1"
+}

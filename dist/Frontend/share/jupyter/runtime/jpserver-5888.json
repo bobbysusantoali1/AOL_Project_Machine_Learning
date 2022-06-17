@@ -1,0 +1,12 @@
+{
+  "base_url": "/",
+  "hostname": "localhost",
+  "password": false,
+  "pid": 5888,
+  "port": 8888,
+  "root_dir": "C:\\Users\\ASUS TUF",
+  "secure": false,
+  "token": "be0bdbf83e737c5f79259d297007598dbcccd506d63b587a",
+  "url": "http://localhost:8888/",
+  "version": "1.4.1"
+}
