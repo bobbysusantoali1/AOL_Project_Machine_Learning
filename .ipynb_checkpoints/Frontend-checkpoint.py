@@ -55,20 +55,11 @@ def normalize(value, mean, stddev):
 def inverse_normalize(normalized_value, mean, stddev):
 	return normalized_value * stddev + mean
 
-def make_histogram(data, title):
+def make_histogram(data):
 	"""
 	Parameter : 1-D Array atau List
 	"""
-	mp.hist(data, 150)
-	margin = (data.max() - data.min()) // 10 + 1
-	mp.xlim(data.min() - margin, data.max() + margin)
-	mp.title(title)
-	mp.show()
-
-
-def make_scatter(data_x, data_y, title):
-	mp.scatter(data_x, data_y)
-	mp.title(title)
+	mp.hist(data, num_of_bins = 150)
 	mp.show()
 
 
@@ -176,8 +167,8 @@ class Application(object):
 			self.all_entries.append(entry)
 
 		variable = [
-			["Luas tanah (m²)", 0.3],
-			["Luas bangunan (m²)", 0.375],
+			["Luas tanah", 0.3],
+			["Luas bangunan", 0.375],
 			["Jumlah kamar tidur", 0.45],
 			["Jumlah kamar mandi", 0.525],
 		]
@@ -269,27 +260,21 @@ class Application(object):
 		pass
 
 
-	def show_LB_histogram(self):
-		make_histogram(house_price_dataset.dataset[:,1], "Building Area (Luas Bangunan)")
-		make_scatter(house_price_dataset.dataset[:,0],
-					house_price_dataset.dataset[:,1],
-					"Scatter harga dengan luas bangunan")
+	def show_LT_histogram(self):
+		print("masuk show lt hist")
+		make_histogram(house_price_dataset.dataset[:,[1]])
 		pass
 
 
-	def show_LT_histogram(self):
-		make_histogram(house_price_dataset.dataset[:,2], "Land Area (Luas Tanah)")
+	def show_LB_histogram(self):
 		pass
 
 
 	def show_KT_histogram(self):
-		make_histogram(house_price_dataset.dataset[:,3], "Number of Bedroom (Jumlah Kamar Tidur)")
-
 		pass
 
 
 	def show_KM_histogram(self):
-		make_histogram(house_price_dataset.dataset[:,4], "Number of Bathroom (Jumlah Kamar Mandi)")
 		pass
 
 
@@ -328,24 +313,7 @@ class Application(object):
 			show_histogram_buttons[i].place(relx = 0.27, rely = variable[i][1])
 
 
-		# show_scatter_buttons = [
-		# 	tkr.Button(self.win,
-		# 				text = "Show Scatter " + variable[0][0],
-		# 				font = Calibri(20),
-		# 				command = self.show_LT_scatter),
-		# 	tkr.Button(self.win,
-		# 				text = "Show Scatter " + variable[1][0],
-		# 				font = Calibri(20),
-		# 				command = self.show_LB_scatter),
-		# 	tkr.Button(self.win,
-		# 				text = "Show Scatter " + variable[2][0],
-		# 				font = Calibri(20),
-		# 				command = self.show_KT_scatter),
-		# 	tkr.Button(self.win,
-		# 				text = "Show Scatter " + variable[3][0],
-		# 				font = Calibri(20),
-		# 				command = self.show_KM_scatter)
-		# ]
+	
 
 
 
